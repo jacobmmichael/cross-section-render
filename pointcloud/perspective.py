@@ -13,8 +13,6 @@ class Perspective:
 
     def getComplementsFromTuple(self, tupleVal):
         complements = {}
-        print("TUPLE:", tupleVal)
-        print("COMPLEMENT VALS: ", self.complementValues)
         complements[self.complementValues[0]] = float(tupleVal[self.ALL_PERSPECTIVES.index(self.complementValues[0])])
         complements[self.complementValues[1]] = float(tupleVal[self.ALL_PERSPECTIVES.index(self.complementValues[1])])
 

@@ -20,8 +20,6 @@ class PointCloudRenderEngine(RenderEngine):
         self.orientation = self.__computeOrientation()
 
     def __computeOrientation(self):
-        print("SELF WIDTH: ", self.width)
-        print("SELF HEIGHT: ", self.height)
         if self.width > self.height:
             return self.LANDSCAPE
         

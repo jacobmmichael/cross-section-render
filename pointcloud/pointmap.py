@@ -15,8 +15,6 @@ class PointMap:
         if perspectiveKey not in self.map:
             self.map[perspectiveKey] = []
 
-        print("Complement during precompute: ", complements)
-
         self.map[perspectiveKey].append(complements)
         self.__checkMinMaxComps(complements)
 
@@ -38,8 +36,6 @@ class PointMap:
 
     def computeHeight(self):
         compVals = self.perspective.getComplementValues()
-        print("CompVals: ", compVals)
-        print("Max height from func: ", self.maxComps[compVals[1]] - self.minComps[compVals[1]])
         return self.maxComps[compVals[1]] - self.minComps[compVals[1]]
 
     def computeMinMaxKeys(self):
