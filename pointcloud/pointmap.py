@@ -30,14 +30,6 @@ class PointMap:
         if (compKeys[1] not in self.maxComps or self.maxComps[compKeys[1]] < comps[compKeys[1]]):
             self.maxComps[compKeys[1]] = comps[compKeys[1]]
 
-    def computeWidth(self):
-        compVals = self.perspective.getComplementValues()
-        return self.maxComps[compVals[0]] - self.minComps[compVals[0]]
-
-    def computeHeight(self):
-        compVals = self.perspective.getComplementValues()
-        return self.maxComps[compVals[1]] - self.minComps[compVals[1]]
-
     def computeMinMaxKeys(self):
         self.minKey = min(self.map, key=float)
         self.maxKey = max(self.map, key=float)
