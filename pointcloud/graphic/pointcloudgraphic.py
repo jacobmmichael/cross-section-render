@@ -109,18 +109,32 @@ class PointCloudGraphic:
 
     # Draws current cross section of the point cloud.  Automatically advances into
     # the next one after printing the current one.
-    def drawCrossSection(self, targetCanvas, xTranslate = 0, yTranslate = 0):
+    def drawCrossSection(self, xTranslate = 0, yTranslate = 0, targetCanvas = None):
         csCurrent = self.crossSections[self.csIteratorIndex]
         imageDrawingCurrent = self.imageDrawingList[self.csIteratorIndex]
         for i in range(0, len(csCurrent)):
-            xPos = csCurrent[i][self.axisLabels[0]] * self.scale + xTranslate + self.xOffset
-            yPos = csCurrent[i][self.axisLabels[1]] * self.scale + yTranslate + self.yOffset
-            p = Circle(xPos, yPos, self.POINT_RADIUS)
-            p.draw(targetCanvas)
-            imageDrawingCurrent.addPoint(p)
+            #self.__printPoint(targetCanvas, csCurrent[i][self.axisLabels[0]], csCurrent[i][self.axisLabels[1]], xTranslate, yTranslate)
+            self.__savePointToImage(imageDrawingCurrent, csCurrent[i][self.axisLabels[0]], csCurrent[i][self.axisLabels[1]], xTranslate, yTranslate)
 
         imageDrawingCurrent.saveImage(self.__generateCrossSectionFileName())
         self.csIteratorIndex = self.csIteratorIndex + 1
+
+    def __printPoint(self, targetCanvas, x, y, xTranslate = 0, yTranslate = 0):
+        xPos = x * self.scale + xTranslate + self.xOffset
+        yPos = y * self.scale + yTranslate + self.yOffset
+        (Circle(xPos, yPos, self.POINT_RADIUS)).draw(targetCanvas)
+    
+    def __savePointToImage(self, imageDrawing, x, y, xTranslate = 0, yTranslate = 0):
+        xPos = x * self.scale + xTranslate + self.xOffset
+        yPos = y * self.scale + yTranslate + self.yOffset
+        imageDrawing.addPoint((Circle(xPos, yPos, self.POINT_RADIUS)))
+
+    def drawAllCrossSections(self, targetCanvas, xTranslate = 0, yTranslate = 0):
+        for i in range(0, len(self.crossSections)):
+            csCurrent = self.crossSections[i]
+            for j in range(0, len(csCurrent)):
+                self.__printPoint(targetCanvas, csCurrent[j][self.axisLabels[0]], csCurrent[j][self.axisLabels[1]], xTranslate, yTranslate)
+
 
     def __generateCrossSectionFileName(self):
         return self.FILE_NAME_PREFIX + str(self.csIteratorIndex)

@@ -17,7 +17,6 @@ class PointCloudRenderEngine(RenderEngine):
         self.destinationFile = destinationFile
         self.perspective = perspective
         self.csThickness = csThickness
-        print("CS THICKNESS: ", self.csThickness)
 
         pointMap = (FileDataExtractor(modelFileName, self.perspective)).extractPointCloud()
         self.pointCloudGraphic = PointCloudGraphic(pointMap, self.csThickness, self.destinationFile, self.width, self.height)
@@ -30,7 +29,9 @@ class PointCloudRenderEngine(RenderEngine):
 
     def drawCrossSections(self):
         for i in range(0, self.pointCloudGraphic.numCrossSections):
-            self.pointCloudGraphic.drawCrossSection(self.__generateCanvas(), self.xCenterShift, self.yCenterShift)
+            self.pointCloudGraphic.drawCrossSection(self.xCenterShift, self.yCenterShift)
+
+        self.pointCloudGraphic.drawAllCrossSections(self.__generateCanvas(), self.xCenterShift, self.yCenterShift)
 
     def __generateCanvas(self):
         tk = Tk()
